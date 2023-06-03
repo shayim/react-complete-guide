@@ -1,0 +1,11 @@
+.expense-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.expense-item__description {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+}
