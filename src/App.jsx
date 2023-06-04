@@ -1,30 +1,19 @@
+import { useContext } from 'react'
 import { ExpenseList } from './components/Expenses/ExpenseList'
+import { AppContext } from './AppContext'
 
 export const App = () => {
-  const expenses = [
-    {
-      id: 1,
-      date: new Date(2023, 2, 28),
-      title: 'Car Insurance',
-      amount: 294.67
-    },
-    {
-      id: 2,
-      date: new Date(2023, 2, 31),
-      title: 'Lunch',
-      amount: 4.99
-    },
-    {
-      id: 3,
-      date: new Date(2023, 3, 18),
-      title: 'IPhone 14 pro',
-      amount: 699.99
-    }
-  ]
+  const {
+    state: { expenses, selectedYear }
+  } = useContext(AppContext)
 
   return (
     <div className="app">
-      <ExpenseList expenses={expenses} />
+      <ExpenseList
+        expenses={expenses
+          .filter((e) => e.date.getFullYear() === selectedYear)
+          .sort((a, b) => (a.date > b.date ? -1 : 1))}
+      />
     </div>
   )
 }

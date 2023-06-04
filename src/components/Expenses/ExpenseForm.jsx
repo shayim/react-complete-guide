@@ -1,6 +1,12 @@
-import { useState } from 'react'
+import { AppContext } from '../../AppContext'
+import './ExpenseForm.css'
+
+import { useContext, useState } from 'react'
 
 export const ExpenseForm = (props) => {
+  const {
+    state: { filterYearRange }
+  } = useContext(AppContext)
   const [{ date, title, amount }, setExpense] = useState(props)
 
   const onChange = (value, field) => {
@@ -9,27 +15,27 @@ export const ExpenseForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({ date, title, amount })
+    props.onSubmitExpense({ date, title, amount })
 
     setExpense({ date: '', title: '', amount: '' })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="date">Date</label>
+    <form className="expense-form" onSubmit={handleSubmit}>
+      <div className="expense-form__control">
+        <label htmlFor="date">Date:</label>
         <input
           type="date"
           required
           id="date"
-          min={'2023-01-01'}
-          max={'2023-12-31'}
+          min={`${new Date().getFullYear() - filterYearRange + 1}-01-01`}
+          max={`${new Date().getFullYear()}-12-31`}
           value={date}
           onChange={({ target }) => onChange(target.value, 'date')}
         />
       </div>
-      <div>
-        <label htmlFor="title">Title</label>
+      <div className="expense-form__control">
+        <label htmlFor="title">Title:</label>
         <input
           type="text"
           required
@@ -38,8 +44,8 @@ export const ExpenseForm = (props) => {
           onChange={({ target }) => onChange(target.value, 'title')}
         />
       </div>
-      <div>
-        <label htmlFor="amount">Amount</label>
+      <div className="expense-form__control">
+        <label htmlFor="amount">Amount:</label>
         <input
           type="number"
           required
@@ -50,7 +56,10 @@ export const ExpenseForm = (props) => {
           onChange={({ target }) => onChange(target.value, 'amount')}
         />
       </div>
-      <input type="submit" value={'Add'} />
+      <div style={{ textAlign: 'center' }}>
+        <button onClick={props.onAbort}>Cancel</button>
+        <input type="submit" value={'Add'} />
+      </div>
     </form>
   )
 }

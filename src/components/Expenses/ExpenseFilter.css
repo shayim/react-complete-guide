@@ -1,0 +1,46 @@
+.expense-filter {
+  display: flex;
+  flex-direction: column;
+}
+
+.expense-filter__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expense-filter__body {
+  display: flex;
+  justify-content: space-around;
+}
+
+.expense-filter__month {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.expense-filter__month div:first-child {
+  width: 0.5rem;
+  height: 6rem;
+  border: 1px solid black;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  text-align: center;
+}
+
+.expense-filter__month div:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.expense-filter__color-bar {
+  display: flex;
+  align-items: flex-end;
+}
+
+.expense-filter__color-bar div:first-child {
+  background-color: red;
+  border-width: 0;
+}
